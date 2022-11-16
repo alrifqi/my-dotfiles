@@ -21,19 +21,34 @@ Plug 'karb94/neoscroll.nvim'
 Plug 'jdhao/better-escape.vim'
 Plug 'APZelos/blamer.nvim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'puremourning/vimspector'
 Plug 'arcticicestudio/nord-vim'
-
+Plug 'jiangmiao/auto-pairs'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'vim-airline/vim-airline'
+Plug 'neovim/nvim-lspconfig'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'tpope/vim-fugitive'
+Plug 'sainnhe/everforest'
+Plug 'norcalli/nvim-colorizer.lua'
+Plug 'numToStr/Comment.nvim'
 " End Plugin list
 
 call plug#end()
 filetype plugin indent on
 
-let g:tokyonight_style='night'
-"colorscheme tokyonight
+" let g:tokyonight_style='storm'
+" let g:everforest_background = 'medium'
+" let g:everforest_better_performance = 1
+" colorscheme tokyonight
 colorscheme nord
+set background=dark
+" colorscheme everforest
 let g:dashboard_default_executive='fzf'
 
+set smartindent
+set tabstop=2
+set expandtab
+set shiftwidth=2
 " NerdTree Plugin
 nnoremap <leader> n :NERDTreeFocus<CR>
 nnoremap <C-n> :NERDTree<CR>
@@ -45,11 +60,16 @@ call wilder#setup({'modes': [':', '/', '?']})
 
 " Better Escape Plugin
 let g:better_escape_shortcut = 'jj'
+let g:better_escape_interval = 200
 
 " APZelos/blamer Plugin
 let g:blamer_enabled = 1
 let g:blamer_show_in_insert_modes = 0
 let g:blamer_prefix = ' > '
+
+" Airline Plugin config
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail'
 
 " coc.nvim PLugin
 let g:coc_global_extensions = [
@@ -62,6 +82,7 @@ let g:coc_global_extensions = [
 	\ 'coc-spell-checker',
 	\ 'coc-yaml',
 	\ 'coc-go',
+  \ 'coc-html',
 	\ ]
 
 nmap <silent> gd <Plug>(coc-definition)
@@ -69,6 +90,32 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
+inoremap <C-h> <Left>
+inoremap <C-j> <Down>
+inoremap <C-k> <Up>
+inoremap <C-l> <Right>
+inoremap <j-j> <Esc>
+inoremap <C-Z> u
+cnoremap <C-h> <Left>
+cnoremap <C-j> <Down>
+cnoremap <C-l> <Right>
+noremap <C-Z> u
+noremap <C-Y> C-R>
+
+nnoremap <Leader>l :ls<CR>
+nnoremap <Leader>b :bp<CR>
+nnoremap <Leader>f :bn<CR>
+nnoremap <Leader>g :e#<CR>
+nnoremap <Leader>1 :1b<CR>
+nnoremap <Leader>2 :2b<CR>
+nnoremap <Leader>3 :3b<CR>
+nnoremap <Leader>4 :4b<CR>
+nnoremap <Leader>5 :5b<CR>
+nnoremap <Leader>6 :6b<CR>
+nnoremap <Leader>7 :7b<CR>
+nnoremap <Leader>8 :8b<CR>
+nnoremap <Leader>9 :9b<CR>
+nnoremap <Leader>0 :10b<CR>
 " Neoscroll Plugin
 lua << END
 require('neoscroll').setup({
@@ -305,5 +352,49 @@ ins_right {
 
 -- Now don't forget to initialize lualine
 lualine.setup(config)
+require('Comment').setup({
+  ---Add a space b/w comment and the line
+  padding = true,
+  ---Whether the cursor should stay at its position
+  sticky = true,
+  ---Lines to be ignored while (un)comment
+  ignore = nil,
+  ---LHS of toggle mappings in NORMAL mode
+  toggler = {
+      ---Line-comment toggle keymap
+      line = 'gcc',
+      ---Block-comment toggle keymap
+      block = 'gbc',
+  },
+  ---LHS of operator-pending mappings in NORMAL and VISUAL mode
+  opleader = {
+      ---Line-comment keymap
+      line = 'gc',
+      ---Block-comment keymap
+      block = 'gb',
+  },
+  ---LHS of extra mappings
+  extra = {
+      ---Add comment on the line above
+      above = 'gcO',
+      ---Add comment on the line below
+      below = 'gco',
+      ---Add comment at the end of line
+      eol = 'gcA',
+  },
+  ---Enable keybindings
+  ---NOTE: If given `false` then the plugin won't create any mappings
+  mappings = {
+      ---Operator-pending mapping; `gcc` `gbc` `gc[count]{motion}` `gb[count]{motion}`
+      basic = true,
+      ---Extra mapping; `gco`, `gcO`, `gcA`
+      extra = true,
+      ---Extended mapping; `g>` `g<` `g>[count]{motion}` `g<[count]{motion}`
+      extended = false,
+  },
+  ---Function to call before (un)comment
+  pre_hook = nil,
+  ---Function to call after (un)comment
+  post_hook = nil,
+})
 END
-
