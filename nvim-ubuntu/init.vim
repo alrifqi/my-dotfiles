@@ -7,25 +7,18 @@ call plug#begin('~/.local/share/nvim/site/plugged')
 
 " Declare the list of plugins.
 Plug 'vim-airline/vim-airline'
-" Visual Settings
-Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
-Plug 'junegunn/limelight.vim'
-Plug 'KeitaNakamura/neodark.vim'
-Plug 'joshdick/onedark.vim'
+Plug 'ryanoasis/vim-devicons'
 Plug 'preservim/nerdtree'
-Plug 'junegunn/limelight.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'ryanoasis/vim-devicons'
 Plug 'sheerun/vim-polyglot'
 Plug 'pangloss/vim-javascript'
 Plug 'ap/vim-css-color'
-Plug 'itchyny/lightline.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'karb94/neoscroll.nvim'
 Plug 'glepnir/dashboard-nvim'
 Plug 'jdhao/better-escape.vim'
 Plug 'nvim-lualine/lualine.nvim'
-Plug 'kyazdani42/nvim-web-devicons'
 Plug 'srstevenson/vim-picker'
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'lewis6991/gitsigns.nvim'
@@ -35,29 +28,20 @@ Plug 'airblade/vim-gitgutter'
 Plug 'numToStr/Comment.nvim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'neovim/nvim-lsp'
-Plug 'akinsho/bufferline.nvim', { 'tag': 'v3.*' }
 Plug 'nvim-treesitter/nvim-treesitter'
-Plug 'arcticicestudio/nord-vim'
 
+" Themes plugin
+Plug 'jacoborus/tender.vim'
+Plug 'junegunn/limelight.vim'
+Plug 'KeitaNakamura/neodark.vim'
+Plug 'joshdick/onedark.vim'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
 " autocmd!
 
-set fileencoding=utf-8
-set encoding=utf-8
-set title
-set mouse=a
-set autoindent
 set background=dark
-set nobackup
-set hlsearch
-set showcmd
-set expandtab
-set cmdheight=1
-set laststatus=2
-set scrolloff=10
 set shell=bash
 set foldlevel=20
 set foldmethod=expr
@@ -65,7 +49,7 @@ set foldexpr=nvim_treesitter#foldexpr()
 autocmd BufReadPost,FileReadPost * normal zR
 
 syntax on
-colorscheme neodark
+colorscheme tender 
 hi Normal guibg=none
 hi Foreground guibg=#ffffff
 let g:Guifont="Cascadia Code:h14"
@@ -74,9 +58,8 @@ if has('nvim')
 	set inccommand=split
 endif
 
-set nosc noru nosm
-
-set lazyredraw
+" set nosc noru nosm
+" set lazyredraw
 set ignorecase
 set smarttab
 set ai
@@ -92,10 +75,9 @@ set termguicolors
 set winblend=0
 set wildoptions=pum
 set pumblend=5
-set showtabline=2
-let g:neosolarized_termtrans=1
-runtime ./colors/NeoSolarized.vim
-
+" set showtabline=2
+" let g:neosolarized_termtrans=1
+" runtime ./colors/NeoSolarized.vim
 
 "NERDTree setup
 
@@ -116,6 +98,8 @@ let g:better_escape_interval = 200
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#exentsions#tabline#formatter = 'unique_tail'
 let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline_theme = 'tender'
+
 
 " KeyBind for NERDTree
 nnoremap <C-t> :NERDTreeToggle<CR>
