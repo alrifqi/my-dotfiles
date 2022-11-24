@@ -28,18 +28,21 @@ Plug 'airblade/vim-gitgutter'
 Plug 'numToStr/Comment.nvim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'neovim/nvim-lsp'
-Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'neovim/nvim-lspconfig'
+Plug 'kabouzeid/nvim-lspinstall'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 " Themes plugin
 Plug 'jacoborus/tender.vim'
 Plug 'junegunn/limelight.vim'
 Plug 'KeitaNakamura/neodark.vim'
 Plug 'joshdick/onedark.vim'
+Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
-" autocmd!
+autocmd!
 
 set background=dark
 set shell=bash
@@ -49,7 +52,7 @@ set foldexpr=nvim_treesitter#foldexpr()
 autocmd BufReadPost,FileReadPost * normal zR
 
 syntax on
-colorscheme tender 
+colorscheme neodark 
 hi Normal guibg=none
 hi Foreground guibg=#ffffff
 let g:Guifont="Cascadia Code:h14"
@@ -60,6 +63,8 @@ endif
 
 " set nosc noru nosm
 " set lazyredraw
+set autoindent
+set cindent
 set ignorecase
 set smarttab
 set ai
@@ -75,7 +80,7 @@ set termguicolors
 set winblend=0
 set wildoptions=pum
 set pumblend=5
-" set showtabline=2
+set showtabline=2
 " let g:neosolarized_termtrans=1
 " runtime ./colors/NeoSolarized.vim
 
@@ -88,6 +93,7 @@ autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTr
 "Changing default NERDTree arrows
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
+let g:nerdtree_tabs_autoclose=0
 let NERDTreeShowHidden=1
 
 " Better Escape Plugin
