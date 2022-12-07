@@ -194,6 +194,9 @@ nnoremap <Leader>f :bn<CR>
 " Config for floaterm
 let g:floaterm_keymap_toggle = '<Leader>ft'
 
+" Config & keymap for FZF
+nnoremap <Leader>fzf :FZF<CR>
+
 lua << END
 
 local lualine = require('lualine')
