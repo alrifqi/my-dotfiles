@@ -29,8 +29,8 @@ Plug 'numToStr/Comment.nvim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'neovim/nvim-lsp'
 Plug 'neovim/nvim-lspconfig'
-Plug 'kabouzeid/nvim-lspinstall'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'voldikss/vim-floaterm'
 
 " Themes plugin
 Plug 'jacoborus/tender.vim'
@@ -163,6 +163,8 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gr <Plug>(coc-references)
 nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gs :sp<CR><Plug>(coc-definition)
+nmap <silent> gv :vsp<CR><Plug>(coc-definition)
 
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
@@ -172,12 +174,13 @@ nnoremap <silent> <space>d :<C-u>CocList diagnostics<cr>
 
 nmap <leader>do <Plug>(coc-codeaction)
 
-nmap <leader>rn <Plug>(coc-rename)
+"nmap <leader>rn <Plug>(coc-rename)
 inoremap <C-h> <Left>
 inoremap <C-j> <Down>
 inoremap <C-k> <Up>
 inoremap <C-l> <Right>
 inoremap <j-j> <Escape>
+inoremap <silent><expr> <c-space> coc#refresh()
 cnoremap <C-h> <Left>
 cnoremap <C-j> <Down>
 cnoremap <C-k> <Up>
@@ -188,7 +191,11 @@ nnoremap <Leader>l :ls<CR>
 nnoremap <Leader>b :bp<CR>
 nnoremap <Leader>f :bn<CR>
 
+" Config for floaterm
+let g:floaterm_keymap_toggle = '<Leader>ft'
+
 lua << END
+
 local lualine = require('lualine')
 
 -- stylua: ignore
