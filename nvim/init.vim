@@ -19,13 +19,11 @@ Plug 'karb94/neoscroll.nvim'
 Plug 'jdhao/better-escape.vim'
 Plug 'APZelos/blamer.nvim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'arcticicestudio/nord-vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'vim-airline/vim-airline'
 Plug 'neovim/nvim-lspconfig'
 Plug 'tpope/vim-fugitive'
-Plug 'sainnhe/everforest'
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'numToStr/Comment.nvim'
 Plug 'tpope/vim-fugitive'
@@ -35,24 +33,22 @@ Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
 " End Plugin list
 
 " Theme section
-Plug 'navarasu/onedark.nvim'
+Plug 'arcticicestudio/nord-vim'
 
 call plug#end()
 filetype plugin indent on
 
-" colorscheme nord
-let g:onedark_config = {
-  \ 'style': 'darker',
-\}
-colorscheme onedark
+" set termguicolors
+colorscheme nord
+
 " Configuration for dashboard & fzf
 let g:dashboard_default_executive='fzf'
 let g:Guifont="Cascadia Code:h10"
 
 syntax on
 syntax enable
-hi Normal guibg=None
-hi Foreground guibg=#ffffff
+" hi Normal guibg=None
+" hi Foreground guibg=#ffffff
 set encoding=UTF-8
 set background=dark
 set smartindent
@@ -135,10 +131,17 @@ nnoremap <Leader>0 :10b<CR>
 " Neoscroll Plugin
 
 " Config for floaterm
-let g:floaterm_keymap_toggle = '<Leader>ft'
+let g:floaterm_keymap_toggle = '<Leader>t'
 
 " Config & keymap for FZF
 nnoremap <Leader>fzf :FZF<CR>
+
+" Config for telescope
+" Find files using Telescope command-line sugar.
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 lua << END
 require('neoscroll').setup({
@@ -160,7 +163,7 @@ END
 lua << END
 
 -- stylua: ignore
-local colors = {
+ local colors = {
   bg       = '#202328',
   fg       = '#bbc2cf',
   yellow   = '#ECBE7B',
