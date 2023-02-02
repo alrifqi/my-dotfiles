@@ -7,8 +7,9 @@ call plug#begin('~/.local/share/nvim/site/plugged')
 
 " Declare the list of plugins.
 Plug 'vim-airline/vim-airline'
-Plug 'ryanoasis/vim-devicons'
+" Plug 'nvim-lualine/lualine.nvim'
 Plug 'preservim/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'ryanoasis/vim-devicons'
 Plug 'sheerun/vim-polyglot'
@@ -25,12 +26,17 @@ Plug 'lewis6991/gitsigns.nvim'
 Plug 'APZelos/blamer.nvim'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
+Plug 'sindrets/diffview.nvim'
 Plug 'numToStr/Comment.nvim'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+" Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'neovim/nvim-lsp'
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'voldikss/vim-floaterm'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
+Plug 'nvim-telescope/telescope-live-grep-args.nvim'
+Plug 'matbme/JABS.nvim'
 
 " Themes plugin
 Plug 'jacoborus/tender.vim'
@@ -38,12 +44,16 @@ Plug 'junegunn/limelight.vim'
 Plug 'KeitaNakamura/neodark.vim'
 Plug 'joshdick/onedark.vim'
 Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+Plug 'sonph/onehalf', { 'rtp': 'vim' }
 
+" My Own Plugin
 " List ends here. Plugins become visible to Vim after this call.
+
 call plug#end()
 
 autocmd!
 
+set encoding=UTF-8
 set background=dark
 set shell=bash
 set foldlevel=20
@@ -52,7 +62,7 @@ set foldexpr=nvim_treesitter#foldexpr()
 autocmd BufReadPost,FileReadPost * normal zR
 
 syntax on
-colorscheme neodark 
+colorscheme onedark 
 hi Normal guibg=none
 hi Foreground guibg=#ffffff
 let g:Guifont="Cascadia Code:h14"
@@ -150,6 +160,7 @@ let g:coc_global_extensions = [
   \ 'coc-pyright',
   \ 'coc-go',
   \ 'coc-html',
+  \ 'coc-rust-analyzer',
   \ ]
 
 
@@ -174,7 +185,7 @@ nnoremap <silent> <space>d :<C-u>CocList diagnostics<cr>
 
 nmap <leader>do <Plug>(coc-codeaction)
 
-"nmap <leader>rn <Plug>(coc-rename)
+nmap <leader>rn <Plug>(coc-rename)
 inoremap <C-h> <Left>
 inoremap <C-j> <Down>
 inoremap <C-k> <Up>
@@ -192,11 +203,17 @@ nnoremap <Leader>b :bp<CR>
 nnoremap <Leader>f :bn<CR>
 
 " Config for floaterm
-let g:floaterm_keymap_toggle = '<Leader>ft'
+let g:floaterm_keymap_toggle = '<Leader>tt'
 
 " Config & keymap for FZF
-nnoremap <Leader>fzf :FZF<CR>
+" nnoremap <Leader>fzf :FZF<CR>
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+lua require('neoscroll').setup()
 
+lua require 'jabs'.setup {}
 lua << END
 
 local lualine = require('lualine')
